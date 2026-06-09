@@ -1,23 +1,11 @@
 import { useLocation, useNavigate } from 'react-router-dom';
-import { LayoutDashboard, Users, Building2, Clock, CalendarOff, Wallet, Award, Shield, BarChart3, Settings, FileText, LogOut } from 'lucide-react';
+import { LayoutDashboard, BarChart3, Settings, LogOut, Home } from 'lucide-react';
 
 const menuItems = [
-  { section: 'CHÍNH', items: [
-    { id: 'dashboard', label: 'Dashboard', icon: LayoutDashboard, path: '/' },
-    { id: 'employees', label: 'Nhân viên', icon: Users, path: '/nhan-vien' },
-    { id: 'departments', label: 'Phòng ban', icon: Building2, path: '/phong-ban' },
-  ]},
-  { section: 'NGHIỆP VỤ', items: [
-    { id: 'attendance', label: 'Chấm công', icon: Clock, path: '/cham-cong' },
-    { id: 'leave', label: 'Nghỉ phép', icon: CalendarOff, path: '/nghi-phep', badge: 3 },
-    { id: 'payroll', label: 'Tiền lương', icon: Wallet, path: '/tien-luong' },
-    { id: 'contracts', label: 'Hợp đồng', icon: FileText, path: '/hop-dong' },
-  ]},
-  { section: 'KHÁC', items: [
-    { id: 'rewards', label: 'Khen thưởng - Kỷ luật', icon: Award, path: '/khen-thuong' },
-    { id: 'insurance', label: 'Bảo hiểm', icon: Shield, path: '/bao-hiem' },
+  { section: 'QUẢN TRỊ', items: [
+    { id: 'dashboard', label: 'Dashboard', icon: LayoutDashboard, path: '/dashboard' },
     { id: 'reports', label: 'Báo cáo thống kê', icon: BarChart3, path: '/bao-cao' },
-    { id: 'settings', label: 'Hệ thống', icon: Settings, path: '/he-thong' },
+    { id: 'settings', label: 'Cài đặt hệ thống', icon: Settings, path: '/he-thong' },
   ]},
 ];
 
@@ -50,13 +38,19 @@ export default function Sidebar() {
                 >
                   <Icon className="nav-icon" size={20} />
                   {item.label}
-                  {item.badge && <span className="nav-badge">{item.badge}</span>}
                 </a>
               );
             })}
           </div>
         ))}
       </nav>
+
+      <div style={{ padding: '0 10px 10px' }}>
+        <a className="nav-item" onClick={() => navigate('/')}>
+          <Home className="nav-icon" size={20} />
+          Về trang chủ
+        </a>
+      </div>
 
       <div className="sidebar-footer">
         <div className="sidebar-user">

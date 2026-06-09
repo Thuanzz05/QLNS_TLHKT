@@ -12,7 +12,7 @@ export default function Login() {
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
-    setTimeout(() => { setLoading(false); navigate('/'); }, 300);
+    setTimeout(() => { setLoading(false); navigate('/dashboard'); }, 300);
   };
 
   return (

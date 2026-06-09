@@ -3,15 +3,7 @@ import Sidebar from './Sidebar';
 import Header from './Header';
 
 const pageTitles: Record<string, { title: string; breadcrumb?: string[] }> = {
-  '/': { title: 'Dashboard' },
-  '/nhan-vien': { title: 'Quản lý nhân viên', breadcrumb: ['Nhân viên'] },
-  '/phong-ban': { title: 'Quản lý phòng ban', breadcrumb: ['Phòng ban'] },
-  '/cham-cong': { title: 'Chấm công', breadcrumb: ['Chấm công'] },
-  '/nghi-phep': { title: 'Quản lý nghỉ phép', breadcrumb: ['Nghỉ phép'] },
-  '/tien-luong': { title: 'Bảng lương', breadcrumb: ['Tiền lương'] },
-  '/hop-dong': { title: 'Hợp đồng lao động', breadcrumb: ['Hợp đồng'] },
-  '/khen-thuong': { title: 'Khen thưởng - Kỷ luật', breadcrumb: ['Khen thưởng'] },
-  '/bao-hiem': { title: 'Quản lý bảo hiểm', breadcrumb: ['Bảo hiểm'] },
+  '/dashboard': { title: 'Dashboard quản trị' },
   '/bao-cao': { title: 'Báo cáo thống kê', breadcrumb: ['Báo cáo'] },
   '/he-thong': { title: 'Cài đặt hệ thống', breadcrumb: ['Hệ thống'] },
 };
