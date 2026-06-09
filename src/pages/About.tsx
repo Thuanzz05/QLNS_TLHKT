@@ -1,11 +1,22 @@
 import { useNavigate } from 'react-router-dom';
 import { Target, Eye, Heart, Award, Users, TrendingUp, Building2, Globe, ArrowRight, CheckCircle2, Star } from 'lucide-react';
 
+const IMG = {
+  office: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1200&q=80',
+  team: 'https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800&q=80',
+  dashboard: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&q=80',
+  meeting: 'https://images.unsplash.com/photo-1573164713714-d95e436ab8d6?w=800&q=80',
+  workspace: 'https://images.unsplash.com/photo-1497215842964-222b430dc094?w=800&q=80',
+  techBg: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=1400&q=80',
+  cityView: 'https://images.unsplash.com/photo-1449824913935-59a10b8d2000?w=800&q=80',
+  handshake: 'https://images.unsplash.com/photo-1521791136064-7986c2920216?w=800&q=80',
+};
+
 const milestones = [
-  { year: '2010', title: 'Thành lập công ty', desc: 'TDT Group chính thức được thành lập tại TP.HCM' },
-  { year: '2015', title: 'Mở rộng quy mô', desc: 'Phát triển lên 6 phòng ban với 200+ nhân viên' },
-  { year: '2020', title: 'Chuyển đổi số', desc: 'Áp dụng công nghệ HRM hiện đại vào quản lý' },
-  { year: '2024', title: 'Vươn tầm khu vực', desc: 'Mở rộng hoạt động ra khu vực Đông Nam Á' },
+  { year: '2010', title: 'Thành lập công ty', desc: 'TDT Group chính thức được thành lập tại TP.HCM', img: IMG.office },
+  { year: '2015', title: 'Mở rộng quy mô', desc: 'Phát triển lên 6 phòng ban với 200+ nhân viên', img: IMG.team },
+  { year: '2020', title: 'Chuyển đổi số', desc: 'Áp dụng công nghệ HRM hiện đại vào quản lý', img: IMG.dashboard },
+  { year: '2024', title: 'Vươn tầm khu vực', desc: 'Mở rộng hoạt động ra khu vực Đông Nam Á', img: IMG.cityView },
 ];
 
 const values = [
@@ -27,8 +38,8 @@ export default function About() {
 
   return (
     <div className="home-page">
-      {/* Navigation */}
-      <section className="about-hero-section">
+      {/* Hero with background image */}
+      <section className="about-hero-section" style={{ backgroundImage: `url(${IMG.office})`, backgroundSize: 'cover', backgroundPosition: 'center', backgroundBlendMode: 'overlay' }}>
         <div className="hero-bg-shapes">
           <div className="hero-shape hero-shape-1" />
           <div className="hero-shape hero-shape-2" />
@@ -55,30 +66,55 @@ export default function About() {
         </div>
       </section>
 
-      {/* Company Overview */}
-      <section className="home-features-section">
-        <div className="section-header">
-          <span className="section-tag">Tổng quan</span>
-          <h2>Sứ mệnh & Tầm nhìn</h2>
+      {/* Mission with image */}
+      <section className="home-split-section">
+        <div className="split-image">
+          <img src={IMG.team} alt="Đội ngũ TDT Group" />
         </div>
-        <div className="about-mission-grid">
-          <div className="about-mission-card">
-            <div className="feature-icon-wrap"><Eye size={24} /></div>
-            <h3>Tầm nhìn</h3>
-            <p>Trở thành tập đoàn hàng đầu Đông Nam Á về giải pháp quản trị nhân sự và phát triển nguồn nhân lực, 
-            dẫn đầu xu hướng chuyển đổi số trong lĩnh vực HR.</p>
+        <div className="split-content">
+          <span className="section-tag">Tổng quan</span>
+          <h2>Câu chuyện<br />của chúng tôi</h2>
+          <p>TDT Group được thành lập với sứ mệnh mang đến giải pháp quản trị nhân sự toàn diện cho doanh nghiệp Việt Nam. 
+          Chúng tôi tin rằng con người là tài sản quý giá nhất của mọi tổ chức.</p>
+          <p style={{ marginTop: 12 }}>Từ một startup nhỏ, chúng tôi đã phát triển thành tập đoàn với hơn 500 nhân viên, 
+          12 phòng ban và 3 chi nhánh trên khắp cả nước.</p>
+        </div>
+      </section>
+
+      {/* Vision & Mission Cards with images */}
+      <section className="home-features-section" style={{ background: 'var(--bg-page)' }}>
+        <div className="section-header">
+          <span className="section-tag">Sứ mệnh & Tầm nhìn</span>
+          <h2>Định hướng phát triển</h2>
+        </div>
+        <div className="about-vision-grid">
+          <div className="about-vision-card">
+            <div className="about-vision-img">
+              <img src={IMG.office} alt="Tầm nhìn" />
+              <div className="about-vision-icon"><Eye size={28} /></div>
+            </div>
+            <div className="about-vision-body">
+              <h3>Tầm nhìn</h3>
+              <p>Trở thành tập đoàn hàng đầu Đông Nam Á về giải pháp quản trị nhân sự và phát triển nguồn nhân lực, 
+              dẫn đầu xu hướng chuyển đổi số trong lĩnh vực HR.</p>
+            </div>
           </div>
-          <div className="about-mission-card">
-            <div className="feature-icon-wrap"><Target size={24} /></div>
-            <h3>Sứ mệnh</h3>
-            <p>Cung cấp giải pháp công nghệ tiên tiến giúp doanh nghiệp tối ưu hóa quản lý nhân sự, 
-            nâng cao trải nghiệm nhân viên và thúc đẩy tăng trưởng bền vững.</p>
+          <div className="about-vision-card">
+            <div className="about-vision-img">
+              <img src={IMG.handshake} alt="Sứ mệnh" />
+              <div className="about-vision-icon"><Target size={28} /></div>
+            </div>
+            <div className="about-vision-body">
+              <h3>Sứ mệnh</h3>
+              <p>Cung cấp giải pháp công nghệ tiên tiến giúp doanh nghiệp tối ưu hóa quản lý nhân sự, 
+              nâng cao trải nghiệm nhân viên và thúc đẩy tăng trưởng bền vững.</p>
+            </div>
           </div>
         </div>
       </section>
 
       {/* Core Values */}
-      <section className="home-features-section" style={{ background: 'var(--bg-page)' }}>
+      <section className="home-features-section">
         <div className="section-header">
           <span className="section-tag">Giá trị cốt lõi</span>
           <h2>Nền tảng phát triển của chúng tôi</h2>
@@ -98,23 +134,43 @@ export default function About() {
         </div>
       </section>
 
-      {/* Timeline */}
-      <section className="home-features-section">
+      {/* Timeline with images */}
+      <section className="home-features-section" style={{ background: 'var(--bg-page)' }}>
         <div className="section-header">
           <span className="section-tag">Lịch sử phát triển</span>
           <h2>Hành trình 14 năm</h2>
         </div>
-        <div className="timeline">
+        <div className="timeline-img-grid">
           {milestones.map((m, i) => (
-            <div key={i} className="timeline-item">
-              <div className="timeline-dot" />
-              <div className="timeline-year">{m.year}</div>
-              <div className="timeline-content">
+            <div key={i} className="timeline-img-card">
+              <div className="timeline-img-wrapper">
+                <img src={m.img} alt={m.title} />
+                <div className="timeline-img-year">{m.year}</div>
+              </div>
+              <div className="timeline-img-body">
                 <h4>{m.title}</h4>
                 <p>{m.desc}</p>
               </div>
             </div>
           ))}
+        </div>
+      </section>
+
+      {/* Workspace showcase */}
+      <section className="home-split-section reverse">
+        <div className="split-image">
+          <img src={IMG.workspace} alt="Môi trường làm việc" />
+        </div>
+        <div className="split-content">
+          <span className="section-tag">Môi trường làm việc</span>
+          <h2>Nơi làm việc<br />lý tưởng</h2>
+          <p>TDT Group cam kết tạo dựng một môi trường làm việc chuyên nghiệp, sáng tạo và thân thiện, 
+          nơi mỗi nhân viên đều có cơ hội phát triển bản thân và đóng góp cho sự thành công chung.</p>
+          <div className="split-stats">
+            <div><strong>95%</strong><span>Hài lòng</span></div>
+            <div><strong>90%</strong><span>Gắn bó</span></div>
+            <div><strong>4.8★</strong><span>Đánh giá</span></div>
+          </div>
         </div>
       </section>
 
@@ -137,23 +193,25 @@ export default function About() {
       </section>
 
       {/* Stats */}
-      <section className="about-stats-section">
-        <div className="about-stats-grid">
-          {[
-            { icon: Users, value: '500+', label: 'Nhân viên' },
-            { icon: Building2, value: '12', label: 'Phòng ban' },
-            { icon: Globe, value: '3', label: 'Chi nhánh' },
-            { icon: Award, value: '15+', label: 'Giải thưởng' },
-          ].map((s, i) => {
-            const Icon = s.icon;
-            return (
-              <div key={i} className="about-stat-card">
-                <Icon size={28} />
-                <div className="about-stat-value">{s.value}</div>
-                <div className="about-stat-label">{s.label}</div>
-              </div>
-            );
-          })}
+      <section className="about-stats-section" style={{ backgroundImage: `url(${IMG.techBg})`, backgroundSize: 'cover', backgroundPosition: 'center' }}>
+        <div className="about-stats-overlay">
+          <div className="about-stats-grid-dark">
+            {[
+              { icon: Users, value: '500+', label: 'Nhân viên' },
+              { icon: Building2, value: '12', label: 'Phòng ban' },
+              { icon: Globe, value: '3', label: 'Chi nhánh' },
+              { icon: Award, value: '15+', label: 'Giải thưởng' },
+            ].map((s, i) => {
+              const Icon = s.icon;
+              return (
+                <div key={i} className="about-stat-card-dark">
+                  <Icon size={28} />
+                  <div className="about-stat-value-dark">{s.value}</div>
+                  <div className="about-stat-label-dark">{s.label}</div>
+                </div>
+              );
+            })}
+          </div>
         </div>
       </section>
 
