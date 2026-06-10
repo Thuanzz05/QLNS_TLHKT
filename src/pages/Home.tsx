@@ -1,4 +1,5 @@
 import { useNavigate } from 'react-router-dom';
+import tdtLogo from '../assets/tdt-logo.svg';
 import { BarChart3, Users, Shield, Clock, ArrowRight, CheckCircle2, Zap, Globe, Monitor, Headphones } from 'lucide-react';
 
 const IMG = {
@@ -41,11 +42,11 @@ export default function Home() {
         </div>
         <nav className="home-nav">
           <div className="home-nav-brand">
-            <div className="nav-logo-icon">TDT</div>
+            <img src={tdtLogo} alt="TDT Group" className="nav-logo-img" />
             <span className="nav-logo-text">TDT Group</span>
           </div>
           <div className="home-nav-links">
-            <a onClick={() => navigate('/')}>Trang chủ</a>
+            <a onClick={() => navigate('/')} className="active">Trang chủ</a>
             <a onClick={() => navigate('/gioi-thieu')}>Giới thiệu</a>
             <button className="btn btn-primary" onClick={() => navigate('/login')}>Đăng nhập</button>
           </div>
@@ -184,7 +185,7 @@ export default function Home() {
       <footer className="home-footer">
         <div className="footer-content">
           <div className="footer-brand">
-            <div className="nav-logo-icon">TDT</div>
+            <img src={tdtLogo} alt="TDT Group" className="nav-logo-img footer-logo-img" />
             <div>
               <div className="footer-brand-name">TDT Group</div>
               <div className="footer-brand-desc">Hệ thống Quản lý Nhân sự</div>

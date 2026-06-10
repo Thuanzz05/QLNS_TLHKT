@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import { Target, Eye, Heart, Award, Users, TrendingUp, Building2, Globe, ArrowRight, CheckCircle2, Star } from 'lucide-react';
+import tdtLogo from '../assets/tdt-logo.svg';
 
 const IMG = {
   office: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1200&q=80',
@@ -46,7 +47,7 @@ export default function About() {
         </div>
         <nav className="home-nav">
           <div className="home-nav-brand">
-            <div className="nav-logo-icon">TDT</div>
+            <img src={tdtLogo} alt="TDT Group" className="nav-logo-img" />
             <span className="nav-logo-text">TDT Group</span>
           </div>
           <div className="home-nav-links">
@@ -234,7 +235,7 @@ export default function About() {
       <footer className="home-footer">
         <div className="footer-content">
           <div className="footer-brand">
-            <div className="nav-logo-icon">TDT</div>
+            <img src={tdtLogo} alt="TDT Group" className="nav-logo-img footer-logo-img" />
             <div>
               <div className="footer-brand-name">TDT Group</div>
               <div className="footer-brand-desc">Hệ thống Quản lý Nhân sự</div>

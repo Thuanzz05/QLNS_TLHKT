@@ -1,5 +1,6 @@
 import { useLocation, useNavigate } from 'react-router-dom';
 import { LayoutDashboard, BarChart3, Settings, LogOut, Home } from 'lucide-react';
+import tdtLogo from '../../assets/tdt-logo.svg';
 
 const menuItems = [
   { section: 'QUẢN TRỊ', items: [
@@ -16,7 +17,7 @@ export default function Sidebar() {
   return (
     <aside className="sidebar">
       <div className="sidebar-logo">
-        <div className="logo-icon">TDT</div>
+        <img src={tdtLogo} alt="TDT Group" className="sidebar-logo-img" />
         <div>
           <h1>TDT Group</h1>
           <span>Quản lý nhân sự</span>

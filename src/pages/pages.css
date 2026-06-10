@@ -5,10 +5,13 @@
 .home-nav { display: flex; align-items: center; justify-content: space-between; padding: 20px 60px; position: relative; z-index: 10; }
 .home-nav-brand { display: flex; align-items: center; gap: 10px; }
 .nav-logo-icon { width: 40px; height: 40px; background: rgba(255,255,255,0.15); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 14px; color: #fff; backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.2); }
+.nav-logo-img { width: 42px; height: 42px; border-radius: 10px; object-fit: contain; filter: drop-shadow(0 2px 8px rgba(0,0,0,0.2)); }
+.footer-logo-img { width: 36px; height: 36px; }
 .nav-logo-text { font-size: 18px; font-weight: 700; color: #fff; }
 .home-nav-links { display: flex; align-items: center; gap: 28px; }
-.home-nav-links a { color: rgba(255,255,255,0.8); font-size: 14px; font-weight: 500; cursor: pointer; transition: var(--transition); }
-.home-nav-links a:hover, .home-nav-links a.active { color: #fff; }
+.home-nav-links a { color: rgba(255,255,255,0.6); font-size: 14px; font-weight: 500; cursor: pointer; transition: var(--transition); padding-bottom: 4px; border-bottom: 2px solid transparent; }
+.home-nav-links a:hover { color: rgba(255,255,255,0.9); }
+.home-nav-links a.active { color: #fff; font-weight: 700; border-bottom: 2px solid #5DADE2; padding-bottom: 4px; }
 .home-nav-links .btn { padding: 8px 20px; font-size: 13px; background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.3); backdrop-filter: blur(10px); }
 .home-nav-links .btn:hover { background: rgba(255,255,255,0.25); }
 

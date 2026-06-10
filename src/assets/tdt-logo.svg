@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" fill="none">
+  <defs>
+    <linearGradient id="bgGrad" x1="0" y1="0" x2="120" y2="120" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#0D3B66"/>
+      <stop offset="50%" stop-color="#1B6BA8"/>
+      <stop offset="100%" stop-color="#0F4C81"/>
+    </linearGradient>
+    <linearGradient id="accentGrad" x1="20" y1="20" x2="100" y2="100" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#5DADE2"/>
+      <stop offset="100%" stop-color="#2E86C1"/>
+    </linearGradient>
+    <linearGradient id="textGrad" x1="0" y1="30" x2="0" y2="90" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#FFFFFF"/>
+      <stop offset="100%" stop-color="#E8F4FD"/>
+    </linearGradient>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="130%">
+      <feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#0D3B66" flood-opacity="0.3"/>
+    </filter>
+  </defs>
+  
+  <!-- Background rounded square -->
+  <rect x="4" y="4" width="112" height="112" rx="24" fill="url(#bgGrad)"/>
+  
+  <!-- Inner accent border -->
+  <rect x="8" y="8" width="104" height="104" rx="20" fill="none" stroke="url(#accentGrad)" stroke-width="1.5" opacity="0.4"/>
+  
+  <!-- Decorative top-left corner element -->
+  <path d="M24 16 L24 28 L16 28" fill="none" stroke="#5DADE2" stroke-width="2.5" stroke-linecap="round" opacity="0.7"/>
+  
+  <!-- Decorative bottom-right corner element -->
+  <path d="M96 104 L96 92 L104 92" fill="none" stroke="#5DADE2" stroke-width="2.5" stroke-linecap="round" opacity="0.7"/>
+  
+  <!-- Hexagon accent behind text -->
+  <polygon points="60,22 88,38 88,70 60,86 32,70 32,38" fill="url(#accentGrad)" opacity="0.08"/>
+  
+  <!-- TDT Letters -->
+  <g filter="url(#shadow)">
+    <!-- T -->
+    <text x="18" y="72" font-family="Arial, Helvetica, sans-serif" font-weight="900" font-size="46" fill="url(#textGrad)" letter-spacing="-1">T</text>
+    <!-- D -->
+    <text x="45" y="72" font-family="Arial, Helvetica, sans-serif" font-weight="900" font-size="46" fill="url(#textGrad)" letter-spacing="-1">D</text>
+    <!-- T -->
+    <text x="77" y="72" font-family="Arial, Helvetica, sans-serif" font-weight="900" font-size="46" fill="url(#textGrad)" letter-spacing="-1">T</text>
+  </g>
+  
+  <!-- Underline accent bar -->
+  <rect x="22" y="80" width="76" height="3.5" rx="1.75" fill="url(#accentGrad)" opacity="0.8"/>
+  
+  <!-- "GROUP" subtitle -->
+  <text x="60" y="98" font-family="Arial, Helvetica, sans-serif" font-weight="600" font-size="13" fill="#85C1E9" text-anchor="middle" letter-spacing="5">GROUP</text>
+</svg>
