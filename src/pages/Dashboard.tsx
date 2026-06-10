@@ -174,7 +174,7 @@ export default function Dashboard() {
               <AlertTriangle size={18} style={{ color: 'var(--accent-red)', flexShrink: 0, marginTop: 2 }} />
               <div>
                 <div className="alert-title">Hợp đồng sắp hết hạn</div>
-                <div className="alert-msg">Lê Hoàng Cường (NV003) - Hết hạn trong 30 ngày</div>
+                <div className="alert-msg">Lâm Đình Khoa (NV003) - Hết hạn trong 30 ngày</div>
                 <div className="alert-time">1 giờ trước</div>
               </div>
             </div>
@@ -190,7 +190,7 @@ export default function Dashboard() {
               <Users size={18} style={{ color: 'var(--primary)', flexShrink: 0, marginTop: 2 }} />
               <div>
                 <div className="alert-title">{trialEmployees} nhân viên đang thử việc</div>
-                <div className="alert-msg">Trịnh Công Sơn, Võ Thị Hạnh cần đánh giá</div>
+                <div className="alert-msg">Trịnh Công Sơn, Nguyễn Đắc Tú cần đánh giá</div>
                 <div className="alert-time">1 ngày trước</div>
               </div>
             </div>

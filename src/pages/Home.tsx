@@ -7,9 +7,10 @@ const IMG = {
   workspace: 'https://images.unsplash.com/photo-1497215842964-222b430dc094?w=800&q=80',
   meeting: 'https://images.unsplash.com/photo-1573164713714-d95e436ab8d6?w=800&q=80',
   analytics: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&q=80',
-  security: 'https://images.unsplash.com/photo-1563986768609-322da13575f2?w=800&q=80',
+  security: 'https://jvs.vn/wp-content/uploads/2026/02/Tuan-thu-quy-dinh-bao-mat-thong-tin-doanh-nghiep.jpg',
   techBg: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=1400&q=80',
   office: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1200&q=80',
+  heroBg: 'https://images.unsplash.com/photo-1521737604893-d14cc237f11d?w=1600&q=80',
 };
 
 const features = [
@@ -32,7 +33,7 @@ export default function Home() {
   return (
     <div className="home-page">
       {/* Hero Section */}
-      <section className="hero-section">
+      <section className="hero-section" style={{ backgroundImage: `linear-gradient(135deg, rgba(7,30,61,0.92) 0%, rgba(15,76,129,0.85) 100%), url(${IMG.heroBg})`, backgroundSize: 'cover', backgroundPosition: 'center' }}>
         <div className="hero-bg-shapes">
           <div className="hero-shape hero-shape-1" />
           <div className="hero-shape hero-shape-2" />
@@ -46,7 +47,6 @@ export default function Home() {
           <div className="home-nav-links">
             <a onClick={() => navigate('/')}>Trang chủ</a>
             <a onClick={() => navigate('/gioi-thieu')}>Giới thiệu</a>
-            <a onClick={() => navigate('/dashboard')}>Dashboard</a>
             <button className="btn btn-primary" onClick={() => navigate('/login')}>Đăng nhập</button>
           </div>
         </nav>
@@ -54,9 +54,9 @@ export default function Home() {
           <div className="hero-badge">
             <Zap size={14} /> Hệ thống HRM thế hệ mới
           </div>
-          <h1>Quản lý Nhân sự<br /><span className="hero-gradient-text">Thông minh & Hiệu quả</span></h1>
+          <h1>Quản lý Nhân sự<br />Thông minh & Hiệu quả</h1>
           <p className="hero-desc">
-            Nền tảng quản lý nhân sự toàn diện cho doanh nghiệp hiện đại. 
+            Nền tảng quản lý nhân sự toàn diện cho doanh nghiệp hiện đại.
             Tối ưu hóa quy trình, nâng cao hiệu suất và xây dựng đội ngũ vững mạnh.
           </p>
           <div className="hero-actions">
@@ -67,11 +67,6 @@ export default function Home() {
               <Globe size={18} /> Tìm hiểu thêm
             </button>
           </div>
-        </div>
-        {/* Hero Dashboard Preview */}
-        <div className="hero-image-wrapper">
-          <div className="hero-image-glow" />
-          <img src={IMG.dashboard} alt="HRM Dashboard Preview" className="hero-image" />
         </div>
       </section>
 
@@ -195,7 +190,7 @@ export default function Home() {
               <div className="footer-brand-desc">Hệ thống Quản lý Nhân sự</div>
             </div>
           </div>
-          <div className="footer-copy">© 2024 TDT Group. All rights reserved.</div>
+          <div className="footer-copy">© 2026 TDT Group. All rights reserved.</div>
         </div>
       </footer>
     </div>

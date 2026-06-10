@@ -18,19 +18,6 @@ export default function Login() {
   return (
     <div className="login-page">
       <div className="login-left">
-        <div style={{ textAlign: 'center', zIndex: 1 }}>
-          <div style={{ width: 70, height: 70, background: 'rgba(255,255,255,0.15)', borderRadius: 16, display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 24px', fontSize: 24, fontWeight: 800, backdropFilter: 'blur(10px)' }}>TDT</div>
-          <h1>TDT Group</h1>
-          <p>Hệ thống Quản lý Nhân sự Doanh nghiệp</p>
-          <div style={{ display: 'flex', gap: 24, marginTop: 40, justifyContent: 'center' }}>
-            {[{ n: '500+', l: 'Nhân viên' }, { n: '12', l: 'Phòng ban' }, { n: '99%', l: 'Uptime' }].map((s, i) => (
-              <div key={i} style={{ textAlign: 'center' }}>
-                <div style={{ fontSize: 28, fontWeight: 800 }}>{s.n}</div>
-                <div style={{ fontSize: 12, opacity: 0.6 }}>{s.l}</div>
-              </div>
-            ))}
-          </div>
-        </div>
       </div>
       <div className="login-right">
         <form className="login-form" onSubmit={handleLogin}>

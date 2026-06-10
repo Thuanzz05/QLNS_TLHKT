@@ -27,10 +27,10 @@ const values = [
 ];
 
 const teamMembers = [
-  { name: 'Nguyễn Văn Minh', role: 'Giám đốc điều hành (CEO)', initials: 'NM' },
-  { name: 'Trần Thị Lan', role: 'Giám đốc Nhân sự (CHRO)', initials: 'TL' },
-  { name: 'Phạm Đức Hoàng', role: 'Giám đốc Công nghệ (CTO)', initials: 'PH' },
-  { name: 'Lê Thị Mai', role: 'Giám đốc Tài chính (CFO)', initials: 'LM' },
+  { name: 'Nguyễn Duy Thuấn', role: 'Giám đốc điều hành (CEO)', initials: 'DT' },
+  { name: 'Nguyễn Văn Trường', role: 'Giám đốc Nhân sự (CHRO)', initials: 'VT' },
+  { name: 'Trần Bình Dương', role: 'Giám đốc Công nghệ (CTO)', initials: 'BD' },
+  { name: 'Nguyễn Văn Thắng', role: 'Giám đốc Tài chính (CFO)', initials: 'VT' },
 ];
 
 export default function About() {
@@ -39,7 +39,7 @@ export default function About() {
   return (
     <div className="home-page">
       {/* Hero with background image */}
-      <section className="about-hero-section" style={{ backgroundImage: `url(${IMG.office})`, backgroundSize: 'cover', backgroundPosition: 'center', backgroundBlendMode: 'overlay' }}>
+      <section className="about-hero-section" style={{ backgroundImage: `linear-gradient(135deg, rgba(7, 30, 61, 0.85) 0%, rgba(15, 76, 129, 0.7) 100%), url(${IMG.office})`, backgroundSize: 'cover', backgroundPosition: 'center' }}>
         <div className="hero-bg-shapes">
           <div className="hero-shape hero-shape-1" />
           <div className="hero-shape hero-shape-2" />
@@ -52,13 +52,12 @@ export default function About() {
           <div className="home-nav-links">
             <a onClick={() => navigate('/')}>Trang chủ</a>
             <a onClick={() => navigate('/gioi-thieu')} className="active">Giới thiệu</a>
-            <a onClick={() => navigate('/dashboard')}>Dashboard</a>
             <button className="btn btn-primary" onClick={() => navigate('/login')}>Đăng nhập</button>
           </div>
         </nav>
         <div className="hero-content" style={{ paddingBottom: 60 }}>
           <div className="hero-badge"><Building2 size={14} /> Về chúng tôi</div>
-          <h1>TDT Group<br /><span className="hero-gradient-text">Kiến tạo giá trị bền vững</span></h1>
+          <h1>TDT Group<br />Kiến tạo giá trị bền vững</h1>
           <p className="hero-desc">
             Với hơn 14 năm kinh nghiệm, TDT Group tự hào là đơn vị tiên phong trong lĩnh vực 
             quản trị nhân sự và chuyển đổi số doanh nghiệp tại Việt Nam.
