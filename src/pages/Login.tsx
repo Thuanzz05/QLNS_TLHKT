@@ -11,8 +11,17 @@ export default function Login() {
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
-    setLoading(true);
-    setTimeout(() => { setLoading(false); navigate('/dashboard'); }, 300);
+    
+    // Simple validation for demo
+    if ((email === 'admin@tdtgroup.vn' || email === 'nv@gmail.com') && password === '123456') {
+      setLoading(true);
+      setTimeout(() => { 
+        setLoading(false); 
+        navigate('/dashboard'); 
+      }, 300);
+    } else {
+      alert('Email hoặc mật khẩu không đúng!\nAdmin: admin@tdtgroup.vn / 123456\nNhân viên: nv@gmail.com / 123456');
+    }
   };
 
   return (
@@ -27,7 +36,7 @@ export default function Login() {
             <label className="form-label">Email</label>
             <div style={{ position: 'relative' }}>
               <Mail size={16} style={{ position: 'absolute', left: 14, top: '50%', transform: 'translateY(-50%)', color: 'var(--text-muted)' }} />
-              <input className="form-input" style={{ paddingLeft: 40 }} type="email" placeholder="admin@tdtgroup.vn" value={email} onChange={e => setEmail(e.target.value)} />
+              <input className="form-input" style={{ paddingLeft: 40 }} type="email" placeholder="admin@tdtgroup.vn hoặc nv@gmail.com" value={email} onChange={e => setEmail(e.target.value)} />
             </div>
           </div>
           <div className="form-group">
