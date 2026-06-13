@@ -10,6 +10,9 @@ import Employees from './pages/Employees';
 import EmployeeProfile from './pages/EmployeeProfile';
 import Attendance from './pages/Attendance';
 import Leave from './pages/Leave';
+import Departments from './pages/Departments';
+import Contracts from './pages/Contracts';
+import Payroll from './pages/Payroll';
 
 export default function App() {
   return (
@@ -26,6 +29,9 @@ export default function App() {
           <Route path="/nhan-vien/:id" element={<EmployeeProfile />} />
           <Route path="/cham-cong" element={<Attendance />} />
           <Route path="/nghi-phep" element={<Leave />} />
+          <Route path="/phong-ban" element={<Departments />} />
+          <Route path="/hop-dong" element={<Contracts />} />
+          <Route path="/tinh-luong" element={<Payroll />} />
           <Route path="/bao-cao" element={<Reports />} />
           <Route path="/he-thong" element={<SystemSettings />} />
         </Route>

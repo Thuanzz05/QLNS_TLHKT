@@ -270,3 +270,86 @@ ul { list-style: none; }
   .form-row { grid-template-columns: 1fr; }
   .page-header { flex-direction: column; align-items: flex-start; gap: 12px; }
 }
+
+/* ===== NEW PAGES: PHONG BAN, HOP DONG, TINH LUONG ===== */
+
+/* card-title/subtitle/actions (dùng trong card-header của trang mới) */
+.card-title { font-size: 16px; font-weight: 700; color: var(--text-primary); margin: 0; }
+.card-subtitle { font-size: 13px; color: var(--text-muted); margin-top: 2px; }
+.card-actions { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+
+/* table-wrapper */
+.table-wrapper { overflow-x: auto; }
+
+/* search-box */
+.search-box { position: relative; display: flex; align-items: center; }
+.search-icon { position: absolute; left: 10px; color: var(--text-muted); pointer-events: none; }
+.search-input { padding: 8px 12px 8px 34px; border: 1px solid var(--border); border-radius: var(--radius-md); font-size: 13px; min-width: 220px; background: var(--bg-white); color: var(--text-primary); transition: var(--transition); }
+.search-input:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px rgba(15,76,129,0.08); }
+.search-input::placeholder { color: var(--text-muted); }
+
+/* action-buttons */
+.action-buttons { display: flex; gap: 6px; align-items: center; }
+.btn-icon { width: 34px; height: 34px; min-width: 34px; min-height: 34px; padding: 0; display: flex; align-items: center; justify-content: center; border-radius: var(--radius-sm); border: none; transition: var(--transition); cursor: pointer; }
+.btn-icon-view { background: var(--primary-bg); color: var(--primary); }
+.btn-icon-view:hover { background: var(--primary); color: #fff; }
+.btn-icon-edit { background: var(--accent-orange-bg); color: var(--accent-orange); }
+.btn-icon-edit:hover { background: var(--accent-orange); color: #fff; }
+.btn-icon-delete { background: var(--accent-red-bg); color: var(--accent-red); }
+.btn-icon-delete:hover { background: var(--accent-red); color: #fff; }
+.btn-icon-approve { background: var(--accent-green-bg); color: var(--accent-green); }
+.btn-icon-approve:hover { background: var(--accent-green); color: #fff; }
+
+/* badge variants với dấu gạch nối */
+.badge-success { background: var(--accent-green-bg); color: var(--accent-green); }
+.badge-warning { background: var(--accent-orange-bg); color: var(--accent-orange); }
+.badge-danger { background: var(--accent-red-bg); color: var(--accent-red); }
+.badge-info { background: var(--primary-bg); color: var(--primary); }
+.badge-primary { background: var(--primary-bg); color: var(--primary); }
+
+/* kpi-card red */
+.kpi-card.red::after { background: var(--accent-red); }
+.kpi-card.red .kpi-icon { background: var(--accent-red-bg); color: var(--accent-red); }
+
+/* btn-ghost */
+.btn-ghost { background: transparent; color: var(--text-secondary); border: 1px solid var(--border); }
+.btn-ghost:hover { background: var(--secondary); color: var(--text-primary); }
+
+/* dept-icon */
+.dept-icon { width: 36px; height: 36px; border-radius: var(--radius-md); background: var(--primary-bg); color: var(--primary); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+
+/* pagination (dùng page-btn) */
+.pagination { display: flex; align-items: center; justify-content: center; gap: 4px; padding: 16px; border-top: 1px solid var(--border-light); }
+.page-btn { min-width: 36px; height: 36px; padding: 4px 10px; border-radius: var(--radius-sm); border: 1px solid var(--border); background: var(--bg-white); color: var(--text-secondary); font-size: 13px; font-weight: 500; display: flex; align-items: center; justify-content: center; transition: var(--transition); cursor: pointer; }
+.page-btn:hover:not(:disabled) { background: var(--primary-bg); border-color: var(--primary); color: var(--primary); }
+.page-btn.active { background: var(--primary); color: #fff; border-color: var(--primary); }
+.page-btn:disabled { opacity: 0.4; cursor: default; }
+
+/* modal-close */
+.modal-close { width: 32px; height: 32px; border-radius: var(--radius-sm); background: var(--secondary); color: var(--text-secondary); font-size: 20px; display: flex; align-items: center; justify-content: center; transition: var(--transition); }
+.modal-close:hover { background: var(--accent-red-bg); color: var(--accent-red); }
+.modal-lg { max-width: 720px; }
+
+/* detail-grid */
+.detail-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.detail-item { display: flex; flex-direction: column; gap: 4px; }
+.detail-item.full-width { grid-column: 1 / -1; }
+.detail-label { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; color: var(--text-muted); }
+.detail-value { font-size: 14px; color: var(--text-primary); font-weight: 500; }
+
+/* form-grid */
+.form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.form-group.full-width { grid-column: 1 / -1; }
+.required { color: var(--accent-red); }
+
+/* payslip */
+.payslip { border: 1px solid var(--border-light); border-radius: var(--radius-lg); overflow: hidden; }
+.payslip-header { display: flex; align-items: center; gap: 16px; padding: 20px 24px; background: var(--primary-bg); border-bottom: 1px solid var(--border-light); }
+.payslip-rows { padding: 4px 0; }
+.payslip-row { display: flex; justify-content: space-between; align-items: center; padding: 12px 24px; font-size: 14px; border-bottom: 1px solid var(--border-light); }
+.payslip-row:last-child { border-bottom: none; }
+.payslip-row.income span:last-child { color: var(--accent-green); font-weight: 600; }
+.payslip-row.deduct span:last-child { color: var(--accent-red); font-weight: 600; }
+.payslip-row.total { background: var(--primary-bg); font-size: 16px; font-weight: 800; }
+.payslip-row.total span:last-child { color: var(--primary); font-size: 18px; }
+.payslip-divider { height: 1px; background: var(--border); margin: 0; }

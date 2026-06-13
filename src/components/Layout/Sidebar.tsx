@@ -1,13 +1,18 @@
 import { useLocation, useNavigate } from 'react-router-dom';
-import { LayoutDashboard, Users, Clock, CalendarOff, BarChart3, Settings, LogOut, Home } from 'lucide-react';
+import { LayoutDashboard, Users, Clock, CalendarOff, BarChart3, Settings, LogOut, Home, Building2, FileText, Wallet } from 'lucide-react';
 import tdtLogo from '../../assets/tdt-logo.svg';
 
 const menuItems = [
   { section: 'QUẢN LÝ NHÂN SỰ', items: [
     { id: 'dashboard', label: 'Dashboard', icon: LayoutDashboard, path: '/dashboard' },
     { id: 'employees', label: 'Quản lý nhân viên', icon: Users, path: '/nhan-vien' },
+    { id: 'departments', label: 'Quản lý phòng ban', icon: Building2, path: '/phong-ban' },
     { id: 'attendance', label: 'Chấm công', icon: Clock, path: '/cham-cong' },
     { id: 'leave', label: 'Quản lý nghỉ phép', icon: CalendarOff, path: '/nghi-phep' },
+  ]},
+  { section: 'LƯƠNG & HỢP ĐỒNG', items: [
+    { id: 'contracts', label: 'Hợp đồng lao động', icon: FileText, path: '/hop-dong' },
+    { id: 'payroll', label: 'Tính lương', icon: Wallet, path: '/tinh-luong' },
   ]},
   { section: 'HỆ THỐNG', items: [
     { id: 'reports', label: 'Báo cáo thống kê', icon: BarChart3, path: '/bao-cao' },

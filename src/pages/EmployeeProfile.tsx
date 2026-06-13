@@ -1,19 +1,24 @@
 import { useState, useEffect } from 'react';
-import { User, Mail, Phone, MapPin, Calendar, Briefcase, DollarSign, FileText, Clock, Edit2, Save } from 'lucide-react';
-import { employees } from '../data/mockData';
+import { useParams, useNavigate } from 'react-router-dom';
+import { User, Mail, Phone, MapPin, Calendar, Briefcase, DollarSign, FileText, Clock, Edit2, Save, ArrowLeft } from 'lucide-react';
+import { getEmployees } from '../utils/localStorage';
+import type { Employee } from '../types';
 
 export default function EmployeeProfile() {
+  const { id } = useParams<{ id: string }>();
+  const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
   const [editMode, setEditMode] = useState(false);
   const [activeTab, setActiveTab] = useState<'info' | 'contract' | 'salary' | 'history'>('info');
-  
-  // Mock data - In real app, get from URL params or context
-  const employee = employees[0];
+  const [employee, setEmployee] = useState<Employee | null>(null);
 
   useEffect(() => {
+    const all = getEmployees() as Employee[];
+    const found = all.find(e => e.id === id || e.maNV === id) || all[0];
+    setEmployee(found);
     const t = setTimeout(() => setLoading(false), 350);
     return () => clearTimeout(t);
-  }, []);
+  }, [id]);
 
   if (loading) {
     return (
@@ -24,8 +29,24 @@ export default function EmployeeProfile() {
     );
   }
 
+  if (!employee) {
+    return (
+      <div style={{ textAlign: 'center', padding: 60, color: 'var(--text-muted)' }}>
+        Không tìm thấy nhân viên.
+        <br />
+        <button className="btn btn-primary" style={{ marginTop: 16 }} onClick={() => navigate('/nhan-vien')}>
+          Quay lại danh sách
+        </button>
+      </div>
+    );
+  }
+
   return (
     <div className="slide-up">
+      {/* Back button */}
+      <button className="btn btn-ghost" style={{ marginBottom: 16 }} onClick={() => navigate('/nhan-vien')}>
+        <ArrowLeft size={16} /> Quay lại danh sách
+      </button>
       {/* Profile Header Card */}
       <div className="card" style={{ marginBottom: 24 }}>
         <div className="card-body" style={{ padding: 32 }}>

@@ -1,10 +1,12 @@
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Users, Plus, Search, Filter, Edit2, Trash2, Eye, Download, Upload } from 'lucide-react';
 import { employees as mockEmployees } from '../data/mockData';
 import { getEmployees, saveEmployees, initializeStorage } from '../utils/localStorage';
 import { attendanceRecords, leaveRequests } from '../data/mockData';
 
 export default function Employees() {
+  const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
   const [employees, setEmployees] = useState<any[]>([]);
   const [searchQuery, setSearchQuery] = useState('');
@@ -584,6 +586,9 @@ export default function Employees() {
             </div>
             <div className="modal-footer">
               <button className="btn btn-secondary" onClick={() => setShowViewModal(false)}>Đóng</button>
+              <button className="btn btn-ghost" onClick={() => { setShowViewModal(false); navigate(`/nhan-vien/${selectedEmployee.id}`); }}>
+                <Eye size={16} /> Xem hồ sơ đầy đủ
+              </button>
               <button className="btn btn-primary" onClick={() => { setShowViewModal(false); handleEditEmployee(selectedEmployee); }}>
                 <Edit2 size={18} /> Chỉnh sửa
               </button>

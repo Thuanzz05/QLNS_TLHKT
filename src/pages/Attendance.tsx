@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Clock, Calendar, CheckCircle2, XCircle, AlertCircle, Download, Filter, Search } from 'lucide-react';
+import { Clock, Calendar, CheckCircle2, XCircle, AlertCircle, Download, Search } from 'lucide-react';
 import { attendanceRecords as mockAttendance, employees as mockEmployees, leaveRequests } from '../data/mockData';
 import { getAttendance, saveAttendance, getEmployees, initializeStorage } from '../utils/localStorage';
 
