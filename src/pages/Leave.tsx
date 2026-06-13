@@ -1,14 +1,33 @@
 import { useState, useEffect } from 'react';
 import { CalendarOff, Plus, Search, Clock, CheckCircle2, XCircle, Download, Eye } from 'lucide-react';
-import { leaveRequests } from '../data/mockData';
+import { leaveRequests as mockLeaveRequests, employees as mockEmployees, attendanceRecords } from '../data/mockData';
+import { getLeaveRequests, saveLeaveRequests, getEmployees, initializeStorage } from '../utils/localStorage';
 
 export default function Leave() {
   const [loading, setLoading] = useState(true);
+  const [leaveRequests, setLeaveRequests] = useState<any[]>([]);
+  const [employees, setEmployees] = useState<any[]>([]);
   const [filterStatus, setFilterStatus] = useState('all');
   const [searchQuery, setSearchQuery] = useState('');
   const [showModal, setShowModal] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage] = useState(5);
+  const [formData, setFormData] = useState({
+    maNV: '',
+    loaiNghi: 'Nghỉ phép năm',
+    tuNgay: '',
+    denNgay: '',
+    lyDo: ''
+  });
 
   useEffect(() => {
+    // Initialize localStorage
+    initializeStorage(mockEmployees, attendanceRecords, mockLeaveRequests);
+    
+    // Load data from localStorage
+    setLeaveRequests(getLeaveRequests());
+    setEmployees(getEmployees());
+    
     const t = setTimeout(() => setLoading(false), 350);
     return () => clearTimeout(t);
   }, []);
@@ -20,11 +39,108 @@ export default function Leave() {
     return matchSearch && matchStatus;
   });
 
+  // Pagination logic
+  const totalPages = Math.ceil(filteredRequests.length / itemsPerPage);
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentRequests = filteredRequests.slice(indexOfFirstItem, indexOfLastItem);
+
+  // Reset to page 1 when filters change
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [searchQuery, filterStatus]);
+
+  const handlePageChange = (pageNumber: number) => {
+    setCurrentPage(pageNumber);
+  };
+
   const stats = {
     total: leaveRequests.length,
     pending: leaveRequests.filter(r => r.trangThai === 'Chờ duyệt').length,
     approved: leaveRequests.filter(r => r.trangThai === 'Đã duyệt').length,
     rejected: leaveRequests.filter(r => r.trangThai === 'Từ chối').length,
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    
+    // Validation
+    if (!formData.maNV) {
+      alert('Vui lòng chọn nhân viên!');
+      return;
+    }
+    if (!formData.tuNgay || !formData.denNgay) {
+      alert('Vui lòng chọn ngày bắt đầu và kết thúc!');
+      return;
+    }
+    if (!formData.lyDo.trim()) {
+      alert('Vui lòng nhập lý do nghỉ phép!');
+      return;
+    }
+
+    // Calculate number of days
+    const startDate = new Date(formData.tuNgay);
+    const endDate = new Date(formData.denNgay);
+    const diffTime = Math.abs(endDate.getTime() - startDate.getTime());
+    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)) + 1;
+
+    if (diffDays <= 0) {
+      alert('Ngày kết thúc phải sau ngày bắt đầu!');
+      return;
+    }
+
+    // Get employee info
+    const emp = employees.find(e => e.maNV === formData.maNV);
+    if (!emp) return;
+
+    // Create new leave request
+    const newRequest = {
+      id: `NP${Date.now()}`,
+      maNV: formData.maNV,
+      hoTen: emp.hoTen,
+      phongBan: emp.phongBan,
+      loaiNghi: formData.loaiNghi as any,
+      tuNgay: formData.tuNgay,
+      denNgay: formData.denNgay,
+      soNgay: diffDays,
+      lyDo: formData.lyDo,
+      trangThai: 'Chờ duyệt' as any,
+      ngayTao: new Date().toISOString().split('T')[0]
+    };
+
+    const updatedRequests = [...leaveRequests, newRequest];
+    setLeaveRequests(updatedRequests);
+    saveLeaveRequests(updatedRequests);
+    
+    alert(`Gửi đơn nghỉ phép thành công!\nSố ngày nghỉ: ${diffDays} ngày`);
+    setShowModal(false);
+    
+    // Reset form
+    setFormData({
+      maNV: '',
+      loaiNghi: 'Nghỉ phép năm',
+      tuNgay: '',
+      denNgay: '',
+      lyDo: ''
+    });
+  };
+
+  const handleApprove = (reqId: string) => {
+    const updatedRequests = leaveRequests.map(req =>
+      req.id === reqId ? { ...req, trangThai: 'Đã duyệt', nguoiDuyet: 'Admin' } : req
+    );
+    setLeaveRequests(updatedRequests);
+    saveLeaveRequests(updatedRequests);
+    alert('Đã phê duyệt đơn nghỉ phép!');
+  };
+
+  const handleReject = (reqId: string) => {
+    const updatedRequests = leaveRequests.map(req =>
+      req.id === reqId ? { ...req, trangThai: 'Từ chối', nguoiDuyet: 'Admin' } : req
+    );
+    setLeaveRequests(updatedRequests);
+    saveLeaveRequests(updatedRequests);
+    alert('Đã từ chối đơn nghỉ phép!');
   };
 
   if (loading) {
@@ -46,10 +162,10 @@ export default function Leave() {
         </div>
         <div className="page-actions">
           <button className="btn btn-secondary">
-            <Download size={16} /> Xuất báo cáo
+            <Download size={18} /> Xuất báo cáo
           </button>
           <button className="btn btn-primary" onClick={() => setShowModal(true)}>
-            <Plus size={16} /> Tạo đơn nghỉ phép
+            <Plus size={18} /> Tạo đơn nghỉ phép
           </button>
         </div>
       </div>
@@ -128,7 +244,7 @@ export default function Leave() {
               </tr>
             </thead>
             <tbody>
-              {filteredRequests.map(req => (
+              {currentRequests.map(req => (
                 <tr key={req.id}>
                   <td>
                     <div className="employee-info">
@@ -156,17 +272,25 @@ export default function Leave() {
                     </span>
                   </td>
                   <td>
-                    <div style={{ display: 'flex', gap: 4, justifyContent: 'center' }}>
+                    <div style={{ display: 'flex', gap: 6, justifyContent: 'center' }}>
                       <button className="btn-icon btn-secondary" title="Xem chi tiết">
-                        <Eye size={14} />
+                        <Eye size={18} />
                       </button>
                       {req.trangThai === 'Chờ duyệt' && (
                         <>
-                          <button className="btn-icon btn-success" title="Phê duyệt">
-                            <CheckCircle2 size={14} />
+                          <button 
+                            className="btn-icon btn-success" 
+                            title="Phê duyệt"
+                            onClick={() => handleApprove(req.id)}
+                          >
+                            <CheckCircle2 size={18} />
                           </button>
-                          <button className="btn-icon btn-danger" title="Từ chối">
-                            <XCircle size={14} />
+                          <button 
+                            className="btn-icon btn-danger" 
+                            title="Từ chối"
+                            onClick={() => handleReject(req.id)}
+                          >
+                            <XCircle size={18} />
                           </button>
                         </>
                       )}
@@ -181,12 +305,32 @@ export default function Leave() {
         {/* Pagination */}
         <div className="pagination">
           <div className="pagination-info">
-            Hiển thị {filteredRequests.length} / {leaveRequests.length} đơn
+            Hiển thị {indexOfFirstItem + 1}-{Math.min(indexOfLastItem, filteredRequests.length)} / {filteredRequests.length} đơn
           </div>
           <div className="pagination-btns">
-            <button>‹</button>
-            <button className="active">1</button>
-            <button>›</button>
+            <button 
+              onClick={() => handlePageChange(currentPage - 1)}
+              disabled={currentPage === 1}
+              style={{ opacity: currentPage === 1 ? 0.5 : 1, cursor: currentPage === 1 ? 'not-allowed' : 'pointer' }}
+            >
+              ‹
+            </button>
+            {Array.from({ length: totalPages }, (_, i) => i + 1).map(page => (
+              <button
+                key={page}
+                onClick={() => handlePageChange(page)}
+                className={currentPage === page ? 'active' : ''}
+              >
+                {page}
+              </button>
+            ))}
+            <button 
+              onClick={() => handlePageChange(currentPage + 1)}
+              disabled={currentPage === totalPages}
+              style={{ opacity: currentPage === totalPages ? 0.5 : 1, cursor: currentPage === totalPages ? 'not-allowed' : 'pointer' }}
+            >
+              ›
+            </button>
           </div>
         </div>
       </div>
@@ -197,52 +341,83 @@ export default function Leave() {
           <div className="modal" onClick={(e) => e.stopPropagation()}>
             <div className="modal-header">
               <h3>Tạo đơn nghỉ phép</h3>
-              <button onClick={() => setShowModal(false)} style={{ background: 'none', color: 'var(--text-muted)' }}>✕</button>
+              <button onClick={() => setShowModal(false)} style={{ background: 'none', color: 'var(--text-muted)', fontSize: 20 }}>✕</button>
             </div>
-            <div className="modal-body">
-              <div className="form-group">
-                <label className="form-label">Nhân viên *</label>
-                <select className="form-input">
-                  <option>Chọn nhân viên...</option>
-                  <option>Phùng Thanh Độ (NV001)</option>
-                  <option>Trần Hà Linh (NV002)</option>
-                  <option>Lâm Đình Khoa (NV003)</option>
-                </select>
-              </div>
-              <div className="form-group">
-                <label className="form-label">Loại nghỉ *</label>
-                <select className="form-input">
-                  <option>Nghỉ phép năm</option>
-                  <option>Nghỉ ốm</option>
-                  <option>Nghỉ việc riêng</option>
-                  <option>Nghỉ thai sản</option>
-                  <option>Nghỉ không lương</option>
-                </select>
-              </div>
-              <div className="form-row">
+            <form onSubmit={handleSubmit}>
+              <div className="modal-body">
                 <div className="form-group">
-                  <label className="form-label">Từ ngày *</label>
-                  <input className="form-input" type="date" />
+                  <label className="form-label">Nhân viên *</label>
+                  <select 
+                    className="form-input"
+                    value={formData.maNV}
+                    onChange={(e) => setFormData({...formData, maNV: e.target.value})}
+                    required
+                  >
+                    <option value="">Chọn nhân viên...</option>
+                    {employees.map(emp => (
+                      <option key={emp.id} value={emp.maNV}>
+                        {emp.hoTen} ({emp.maNV}) - {emp.phongBan}
+                      </option>
+                    ))}
+                  </select>
                 </div>
                 <div className="form-group">
-                  <label className="form-label">Đến ngày *</label>
-                  <input className="form-input" type="date" />
+                  <label className="form-label">Loại nghỉ *</label>
+                  <select 
+                    className="form-input"
+                    value={formData.loaiNghi}
+                    onChange={(e) => setFormData({...formData, loaiNghi: e.target.value})}
+                    required
+                  >
+                    <option value="Nghỉ phép năm">Nghỉ phép năm</option>
+                    <option value="Nghỉ ốm">Nghỉ ốm</option>
+                    <option value="Nghỉ việc riêng">Nghỉ việc riêng</option>
+                    <option value="Nghỉ thai sản">Nghỉ thai sản</option>
+                    <option value="Nghỉ không lương">Nghỉ không lương</option>
+                  </select>
+                </div>
+                <div className="form-row">
+                  <div className="form-group">
+                    <label className="form-label">Từ ngày *</label>
+                    <input 
+                      className="form-input" 
+                      type="date"
+                      value={formData.tuNgay}
+                      onChange={(e) => setFormData({...formData, tuNgay: e.target.value})}
+                      required
+                    />
+                  </div>
+                  <div className="form-group">
+                    <label className="form-label">Đến ngày *</label>
+                    <input 
+                      className="form-input" 
+                      type="date"
+                      value={formData.denNgay}
+                      onChange={(e) => setFormData({...formData, denNgay: e.target.value})}
+                      required
+                    />
+                  </div>
+                </div>
+                <div className="form-group">
+                  <label className="form-label">Lý do *</label>
+                  <textarea 
+                    className="form-input" 
+                    rows={4}
+                    value={formData.lyDo}
+                    onChange={(e) => setFormData({...formData, lyDo: e.target.value})}
+                    placeholder="Nhập lý do nghỉ phép..."
+                    style={{ resize: 'vertical' }}
+                    required
+                  />
                 </div>
               </div>
-              <div className="form-group">
-                <label className="form-label">Lý do *</label>
-                <textarea 
-                  className="form-input" 
-                  rows={4} 
-                  placeholder="Nhập lý do nghỉ phép..."
-                  style={{ resize: 'vertical' }}
-                />
+              <div className="modal-footer">
+                <button type="button" className="btn btn-secondary" onClick={() => setShowModal(false)}>Hủy</button>
+                <button type="submit" className="btn btn-primary">
+                  <CalendarOff size={18} /> Gửi đơn
+                </button>
               </div>
-            </div>
-            <div className="modal-footer">
-              <button className="btn btn-secondary" onClick={() => setShowModal(false)}>Hủy</button>
-              <button className="btn btn-primary">Gửi đơn</button>
-            </div>
+            </form>
           </div>
         </div>
       )}

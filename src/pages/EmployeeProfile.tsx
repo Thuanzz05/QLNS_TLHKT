@@ -84,7 +84,7 @@ export default function EmployeeProfile() {
               className={`btn ${editMode ? 'btn-success' : 'btn-primary'}`}
               onClick={() => setEditMode(!editMode)}
             >
-              {editMode ? <><Save size={16} /> Lưu</> : <><Edit2 size={16} /> Chỉnh sửa</>}
+              {editMode ? <><Save size={18} /> Lưu</> : <><Edit2 size={18} /> Chỉnh sửa</>}
             </button>
           </div>
         </div>

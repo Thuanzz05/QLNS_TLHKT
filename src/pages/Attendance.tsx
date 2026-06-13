@@ -1,14 +1,35 @@
 import { useState, useEffect } from 'react';
 import { Clock, Calendar, CheckCircle2, XCircle, AlertCircle, Download, Filter, Search } from 'lucide-react';
-import { attendanceRecords } from '../data/mockData';
+import { attendanceRecords as mockAttendance, employees as mockEmployees, leaveRequests } from '../data/mockData';
+import { getAttendance, saveAttendance, getEmployees, initializeStorage } from '../utils/localStorage';
 
 export default function Attendance() {
   const [loading, setLoading] = useState(true);
+  const [attendanceRecords, setAttendanceRecords] = useState<any[]>([]);
+  const [employees, setEmployees] = useState<any[]>([]);
   const [selectedDate, setSelectedDate] = useState('2024-12-16');
   const [filterStatus, setFilterStatus] = useState('all');
   const [searchQuery, setSearchQuery] = useState('');
+  const [showModal, setShowModal] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage] = useState(5);
+  const [formData, setFormData] = useState({
+    maNV: '',
+    ngay: new Date().toISOString().split('T')[0],
+    gioVao: '',
+    gioRa: '',
+    trangThai: 'Đúng giờ',
+    ghiChu: ''
+  });
 
   useEffect(() => {
+    // Initialize localStorage
+    initializeStorage(mockEmployees, mockAttendance, leaveRequests);
+    
+    // Load data from localStorage
+    setAttendanceRecords(getAttendance());
+    setEmployees(getEmployees());
+    
     const t = setTimeout(() => setLoading(false), 350);
     return () => clearTimeout(t);
   }, []);
@@ -20,12 +41,75 @@ export default function Attendance() {
     return matchSearch && matchStatus;
   });
 
+  // Pagination logic
+  const totalPages = Math.ceil(filteredRecords.length / itemsPerPage);
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentRecords = filteredRecords.slice(indexOfFirstItem, indexOfLastItem);
+
+  // Reset to page 1 when filters change
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [searchQuery, filterStatus]);
+
+  const handlePageChange = (pageNumber: number) => {
+    setCurrentPage(pageNumber);
+  };
+
   const stats = {
     total: attendanceRecords.length,
     dungGio: attendanceRecords.filter(r => r.trangThai === 'Đúng giờ').length,
     diTre: attendanceRecords.filter(r => r.trangThai === 'Đi trễ').length,
     vangMat: attendanceRecords.filter(r => r.trangThai === 'Vắng mặt').length,
     nghiPhep: attendanceRecords.filter(r => r.trangThai === 'Nghỉ phép').length,
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    
+    // Validation
+    if (!formData.maNV) {
+      alert('Vui lòng chọn nhân viên!');
+      return;
+    }
+    if (!formData.gioVao && formData.trangThai !== 'Nghỉ phép' && formData.trangThai !== 'Vắng mặt') {
+      alert('Vui lòng nhập giờ vào!');
+      return;
+    }
+
+    // Get employee info
+    const emp = employees.find(e => e.maNV === formData.maNV);
+    if (!emp) return;
+
+    // Create new record
+    const newRecord = {
+      id: `CC${Date.now()}`,
+      maNV: formData.maNV,
+      hoTen: emp.hoTen,
+      phongBan: emp.phongBan,
+      ngay: formData.ngay,
+      gioVao: formData.gioVao,
+      gioRa: formData.gioRa,
+      trangThai: formData.trangThai as any,
+      ghiChu: formData.ghiChu
+    };
+
+    const updatedRecords = [...attendanceRecords, newRecord];
+    setAttendanceRecords(updatedRecords);
+    saveAttendance(updatedRecords);
+    
+    alert('Chấm công thành công!');
+    setShowModal(false);
+    
+    // Reset form
+    setFormData({
+      maNV: '',
+      ngay: new Date().toISOString().split('T')[0],
+      gioVao: '',
+      gioRa: '',
+      trangThai: 'Đúng giờ',
+      ghiChu: ''
+    });
   };
 
   if (loading) {
@@ -47,10 +131,10 @@ export default function Attendance() {
         </div>
         <div className="page-actions">
           <button className="btn btn-secondary">
-            <Download size={16} /> Xuất báo cáo
+            <Download size={18} /> Xuất báo cáo
           </button>
-          <button className="btn btn-primary">
-            <Clock size={16} /> Chấm công thủ công
+          <button className="btn btn-primary" onClick={() => setShowModal(true)}>
+            <Clock size={18} /> Chấm công thủ công
           </button>
         </div>
       </div>
@@ -141,7 +225,7 @@ export default function Attendance() {
               </tr>
             </thead>
             <tbody>
-              {filteredRecords.map(record => {
+              {currentRecords.map(record => {
                 const gioVao = record.gioVao ? new Date(`2024-01-01 ${record.gioVao}`) : null;
                 const gioRa = record.gioRa ? new Date(`2024-01-01 ${record.gioRa}`) : null;
                 const tongGio = gioVao && gioRa ? ((gioRa.getTime() - gioVao.getTime()) / (1000 * 60 * 60)).toFixed(1) : '-';
@@ -188,13 +272,32 @@ export default function Attendance() {
         {/* Pagination */}
         <div className="pagination">
           <div className="pagination-info">
-            Hiển thị {filteredRecords.length} / {attendanceRecords.length} bản ghi
+            Hiển thị {indexOfFirstItem + 1}-{Math.min(indexOfLastItem, filteredRecords.length)} / {filteredRecords.length} bản ghi
           </div>
           <div className="pagination-btns">
-            <button>‹</button>
-            <button className="active">1</button>
-            <button>2</button>
-            <button>›</button>
+            <button 
+              onClick={() => handlePageChange(currentPage - 1)}
+              disabled={currentPage === 1}
+              style={{ opacity: currentPage === 1 ? 0.5 : 1, cursor: currentPage === 1 ? 'not-allowed' : 'pointer' }}
+            >
+              ‹
+            </button>
+            {Array.from({ length: totalPages }, (_, i) => i + 1).map(page => (
+              <button
+                key={page}
+                onClick={() => handlePageChange(page)}
+                className={currentPage === page ? 'active' : ''}
+              >
+                {page}
+              </button>
+            ))}
+            <button 
+              onClick={() => handlePageChange(currentPage + 1)}
+              disabled={currentPage === totalPages}
+              style={{ opacity: currentPage === totalPages ? 0.5 : 1, cursor: currentPage === totalPages ? 'not-allowed' : 'pointer' }}
+            >
+              ›
+            </button>
           </div>
         </div>
       </div>
@@ -229,6 +332,106 @@ export default function Attendance() {
           </div>
         </div>
       </div>
+
+      {/* Modal Chấm Công Thủ Công */}
+      {showModal && (
+        <div className="modal-overlay" onClick={() => setShowModal(false)}>
+          <div className="modal" onClick={(e) => e.stopPropagation()}>
+            <div className="modal-header">
+              <h3>Chấm công thủ công</h3>
+              <button onClick={() => setShowModal(false)} style={{ background: 'none', color: 'var(--text-muted)', fontSize: 20 }}>✕</button>
+            </div>
+            <form onSubmit={handleSubmit}>
+              <div className="modal-body">
+                <div className="form-group">
+                  <label className="form-label">Nhân viên *</label>
+                  <select 
+                    className="form-input"
+                    value={formData.maNV}
+                    onChange={(e) => setFormData({...formData, maNV: e.target.value})}
+                    required
+                  >
+                    <option value="">Chọn nhân viên...</option>
+                    {employees.map(emp => (
+                      <option key={emp.id} value={emp.maNV}>
+                        {emp.hoTen} ({emp.maNV}) - {emp.phongBan}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+
+                <div className="form-group">
+                  <label className="form-label">Ngày chấm công *</label>
+                  <input 
+                    className="form-input" 
+                    type="date"
+                    value={formData.ngay}
+                    onChange={(e) => setFormData({...formData, ngay: e.target.value})}
+                    required
+                  />
+                </div>
+
+                <div className="form-row">
+                  <div className="form-group">
+                    <label className="form-label">Giờ vào</label>
+                    <input 
+                      className="form-input" 
+                      type="time"
+                      value={formData.gioVao}
+                      onChange={(e) => setFormData({...formData, gioVao: e.target.value})}
+                      placeholder="08:00"
+                    />
+                  </div>
+                  <div className="form-group">
+                    <label className="form-label">Giờ ra</label>
+                    <input 
+                      className="form-input" 
+                      type="time"
+                      value={formData.gioRa}
+                      onChange={(e) => setFormData({...formData, gioRa: e.target.value})}
+                      placeholder="17:00"
+                    />
+                  </div>
+                </div>
+
+                <div className="form-group">
+                  <label className="form-label">Trạng thái *</label>
+                  <select 
+                    className="form-input"
+                    value={formData.trangThai}
+                    onChange={(e) => setFormData({...formData, trangThai: e.target.value})}
+                    required
+                  >
+                    <option value="Đúng giờ">Đúng giờ</option>
+                    <option value="Đi trễ">Đi trễ</option>
+                    <option value="Về sớm">Về sớm</option>
+                    <option value="Vắng mặt">Vắng mặt</option>
+                    <option value="Nghỉ phép">Nghỉ phép</option>
+                  </select>
+                </div>
+
+                <div className="form-group">
+                  <label className="form-label">Ghi chú</label>
+                  <textarea 
+                    className="form-input" 
+                    rows={3}
+                    value={formData.ghiChu}
+                    onChange={(e) => setFormData({...formData, ghiChu: e.target.value})}
+                    placeholder="Nhập ghi chú nếu có..."
+                    style={{ resize: 'vertical' }}
+                  />
+                </div>
+              </div>
+              <div className="modal-footer">
+                <button type="button" className="btn btn-secondary" onClick={() => setShowModal(false)}>Hủy</button>
+                <button type="submit" className="btn btn-primary">
+                  <Clock size={18} /> Lưu chấm công
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
