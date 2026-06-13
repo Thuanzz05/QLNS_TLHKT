@@ -7,6 +7,7 @@ const pageTitles: Record<string, { title: string; breadcrumb?: string[] }> = {
   '/phong-ban': { title: 'Quản lý phòng ban', breadcrumb: ['Nhân sự', 'Phòng ban'] },
   '/hop-dong': { title: 'Hợp đồng lao động', breadcrumb: ['Hợp đồng'] },
   '/tinh-luong': { title: 'Tính lương nhân viên', breadcrumb: ['Lương & Hợp đồng', 'Tính lương'] },
+  '/khen-thuong-ky-luat': { title: 'Khen thưởng & Kỷ luật', breadcrumb: ['Lương & Hợp đồng', 'Khen thưởng & Kỷ luật'] },
   '/bao-cao': { title: 'Báo cáo thống kê', breadcrumb: ['Báo cáo'] },
   '/he-thong': { title: 'Cài đặt hệ thống', breadcrumb: ['Hệ thống'] },
 };

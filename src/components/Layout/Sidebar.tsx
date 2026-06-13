@@ -1,5 +1,5 @@
 import { useLocation, useNavigate } from 'react-router-dom';
-import { LayoutDashboard, Users, Clock, CalendarOff, BarChart3, Settings, LogOut, Home, Building2, FileText, Wallet } from 'lucide-react';
+import { LayoutDashboard, Users, Clock, CalendarOff, BarChart3, Settings, LogOut, Home, Building2, FileText, Wallet, Award } from 'lucide-react';
 import tdtLogo from '../../assets/tdt-logo.svg';
 
 const menuItems = [
@@ -13,6 +13,7 @@ const menuItems = [
   { section: 'LƯƠNG & HỢP ĐỒNG', items: [
     { id: 'contracts', label: 'Hợp đồng lao động', icon: FileText, path: '/hop-dong' },
     { id: 'payroll', label: 'Tính lương', icon: Wallet, path: '/tinh-luong' },
+    { id: 'reward-discipline', label: 'Khen thưởng & Kỷ luật', icon: Award, path: '/khen-thuong-ky-luat' },
   ]},
   { section: 'HỆ THỐNG', items: [
     { id: 'reports', label: 'Báo cáo thống kê', icon: BarChart3, path: '/bao-cao' },

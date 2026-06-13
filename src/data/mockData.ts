@@ -1,4 +1,4 @@
-import type { Employee, Department, LeaveRequest, AttendanceRecord, PayrollRecord, Notification } from '../types';
+import type { Employee, Department, LeaveRequest, AttendanceRecord, PayrollRecord, Notification, RewardDiscipline } from '../types';
 
 export const employees: Employee[] = [
   { id: '1', maNV: 'NV001', hoTen: 'Phùng Thanh Độ', email: 'do.pt@tdtgroup.vn', soDienThoai: '0901234567', ngaySinh: '1990-05-15', gioiTinh: 'Nam', diaChi: 'Quận 1, TP.HCM', phongBan: 'Công nghệ thông tin', phongBanId: 'PB001', chucVu: 'Trưởng phòng', ngayVaoLam: '2019-03-01', trangThai: 'Đang làm', loaiHopDong: 'Không xác định thời hạn', luongCoBan: 35000000 },
@@ -83,4 +83,15 @@ export const payrollSummary = [
   { name: 'T6', tongLuong: 1200 }, { name: 'T7', tongLuong: 1250 },
   { name: 'T8', tongLuong: 1280 }, { name: 'T9', tongLuong: 1300 },
   { name: 'T10', tongLuong: 1320 }, { name: 'T11', tongLuong: 1350 },
+];
+
+export const rewardDisciplineRecords: RewardDiscipline[] = [
+  { id: 'KT001', maNV: 'NV001', hoTen: 'Phùng Thanh Độ', phongBan: 'Công nghệ thông tin', loai: 'Khen thưởng', hinhThuc: 'Thưởng tháng', lyDo: 'Hoàn thành xuất sắc dự án hệ thống ERP Q4/2024', soTien: 5000000, ngayQuyetDinh: '2024-12-01', nguoiQuyetDinh: 'Ban Giám đốc', trangThai: 'Hiệu lực' },
+  { id: 'KT002', maNV: 'NV002', hoTen: 'Trần Hà Linh', phongBan: 'Nhân sự', loai: 'Khen thưởng', hinhThuc: 'Nhân viên xuất sắc', lyDo: 'Tuyển dụng thành công 15 nhân viên chất lượng cao', soTien: 3000000, ngayQuyetDinh: '2024-11-15', nguoiQuyetDinh: 'Giám đốc Nhân sự', trangThai: 'Hiệu lực' },
+  { id: 'KL001', maNV: 'NV008', hoTen: 'Trần Mạnh Quang', phongBan: 'Kinh doanh', loai: 'Kỷ luật', hinhThuc: 'Khiển trách', lyDo: 'Vắng mặt không phép 3 ngày liên tiếp', ngayQuyetDinh: '2024-12-10', nguoiQuyetDinh: 'Trưởng phòng Kinh doanh', trangThai: 'Hiệu lực' },
+  { id: 'KT003', maNV: 'NV004', hoTen: 'Trần Thái Linh', phongBan: 'Tài chính - Kế toán', loai: 'Khen thưởng', hinhThuc: 'Thưởng quý', lyDo: 'Kiểm soát chi phí hiệu quả, tiết kiệm 12% ngân sách Q3', soTien: 4000000, ngayQuyetDinh: '2024-10-31', nguoiQuyetDinh: 'Giám đốc Tài chính', trangThai: 'Hiệu lực' },
+  { id: 'KL002', maNV: 'NV005', hoTen: 'Nguyễn Đắc Tú', phongBan: 'Marketing', loai: 'Kỷ luật', hinhThuc: 'Cảnh cáo', lyDo: 'Vi phạm nội quy sử dụng tài sản công ty', ngayQuyetDinh: '2024-11-20', nguoiQuyetDinh: 'Trưởng phòng Nhân sự', trangThai: 'Hiệu lực' },
+  { id: 'KT004', maNV: 'NV006', hoTen: 'Nguyễn Văn Thuận', phongBan: 'Công nghệ thông tin', loai: 'Khen thưởng', hinhThuc: 'Thưởng sáng kiến', lyDo: 'Đề xuất giải pháp tự động hóa giúp giảm 30% thời gian xử lý', soTien: 2000000, ngayQuyetDinh: '2024-09-15', nguoiQuyetDinh: 'Trưởng phòng CNTT', trangThai: 'Hiệu lực' },
+  { id: 'KL003', maNV: 'NV003', hoTen: 'Lâm Đình Khoa', phongBan: 'Kinh doanh', loai: 'Kỷ luật', hinhThuc: 'Khiển trách', lyDo: 'Không đạt chỉ tiêu doanh số Q3/2024', ngayQuyetDinh: '2024-10-05', nguoiQuyetDinh: 'Giám đốc Kinh doanh', trangThai: 'Hủy bỏ' },
+  { id: 'KT005', maNV: 'NV009', hoTen: 'Nguyễn Minh Hoàng', phongBan: 'Hành chính', loai: 'Khen thưởng', hinhThuc: 'Thưởng năm', lyDo: 'Quản lý hành chính hiệu quả, không có sự cố trong năm 2024', soTien: 6000000, ngayQuyetDinh: '2024-12-20', nguoiQuyetDinh: 'Ban Giám đốc', trangThai: 'Hiệu lực' },
 ];

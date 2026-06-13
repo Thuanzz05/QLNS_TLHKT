@@ -13,6 +13,7 @@ import Leave from './pages/Leave';
 import Departments from './pages/Departments';
 import Contracts from './pages/Contracts';
 import Payroll from './pages/Payroll';
+import RewardDiscipline from './pages/RewardDiscipline';
 
 export default function App() {
   return (
@@ -32,6 +33,7 @@ export default function App() {
           <Route path="/phong-ban" element={<Departments />} />
           <Route path="/hop-dong" element={<Contracts />} />
           <Route path="/tinh-luong" element={<Payroll />} />
+          <Route path="/khen-thuong-ky-luat" element={<RewardDiscipline />} />
           <Route path="/bao-cao" element={<Reports />} />
           <Route path="/he-thong" element={<SystemSettings />} />
         </Route>

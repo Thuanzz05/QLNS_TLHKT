@@ -98,6 +98,20 @@ export interface Contract {
   luongCoBan: number;
 }
 
+export interface RewardDiscipline {
+  id: string;
+  maNV: string;
+  hoTen: string;
+  phongBan: string;
+  loai: 'Khen thưởng' | 'Kỷ luật';
+  hinhThuc: string;
+  lyDo: string;
+  soTien?: number;
+  ngayQuyetDinh: string;
+  nguoiQuyetDinh: string;
+  trangThai: 'Hiệu lực' | 'Hủy bỏ';
+}
+
 export interface KPIData {
   label: string;
   value: number | string;
